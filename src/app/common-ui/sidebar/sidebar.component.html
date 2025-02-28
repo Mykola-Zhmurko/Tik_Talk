@@ -1,0 +1,60 @@
+<img src="/svg/logo-small.svg" 
+alt="">
+    
+<nav>
+    <ul class="main-menu-list">
+        <li *ngFor="let menuItem of menuItems">    
+            <a class="menu-item" 
+            [routerLink]="[menuItem.link]"
+            routerLinkActive="aktive"
+            >
+                <svg [icon] = "menuItem.icon"></svg>
+                <span>{{menuItem.label}}</span>
+            </a>
+        </li>   
+    </ul>
+</nav>
+
+<p class="medium-text m20" >Subscribers</p>
+    
+    @for (subscriber of subscribers$ | async; track subscriber.id){
+
+        <app-subscriber-card
+        [profile]="subscriber"
+        ></app-subscriber-card>
+        
+
+    }
+    
+
+<div class="mt20 to-subscribers">
+
+<footer class="sidebar__footer">
+    @if (me(); as me) {
+        @if (me.avatarUrl) {
+            <img [src]="me.avatarUrl | imgUrl" alt="">
+        }   @else {
+            <img src="/img/myAvatar.jpeg" alt="">
+        }
+        <div class="medium-text username-text">{{me.username}}</div>
+
+        <a [routerLink]="['settings']" class="settings-btn">
+            <svg icon="settings"></svg>
+        </a>
+    }
+</footer>
+
+</div>
+
+<a
+        [routerLink]="['/subscribers']"
+        class="to-subscribers-link medium-text"
+    >All subscribers
+    <svg icon="arrow" class="to-subscribers-icon"></svg>
+</a>
+
+<a class="logout-a">
+    <svg  icon = "logout" routerLink="/login"></svg>
+</a>
+
+<p class="lp" (click)="logout()">Logout</p>
